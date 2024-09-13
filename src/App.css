@@ -8,7 +8,7 @@ body {
 
 main {
   height: 100vh;
-  background-color: #DAECFD;
+  background-color: #daecfd;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +58,7 @@ main {
 .course__description {
   color: #777777;
   font-weight: 300;
-  margin-top: .4rem;
+  margin-top: 0.4rem;
 }
 .course__icons {
   display: flex;
@@ -79,4 +79,9 @@ main {
 }
 .btn > .fa-link {
   color: #393939;
+}
+
+.btn__img {
+  width: 20px;
+  color: red;
 }

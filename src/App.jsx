@@ -25,10 +25,12 @@ function App() {
     },
   ];
 
+  const temp = items.filter(item => item.isFavorite);
   return (
     <>
-      <main>
-        <CourseListCard items={items} />
+      <main style={{ flexDirection: 'column', gap: '20px' }}>
+        <CourseListCard title='강의 목록' items={items} />
+        <CourseListCard title='관심 강의' items={temp} />
       </main>
     </>
   );

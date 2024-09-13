@@ -85,3 +85,10 @@ main {
   width: 20px;
   color: red;
 }
+
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #e2e2e2;
+  margin: 16px 0;
+}

@@ -1,16 +1,16 @@
+import Card from '../Card';
 import CourseItem from './CourseItem';
 
-export default function CourseListCard() {
+export default function CourseListCard({ items }) {
+  const [course1, course2, course3] = items;
+
   return (
-    <div className='card'>
-      <div className='card__header'>강의 목록</div>
-      <div className='card__body'>
-        <div className='courses'>
-          <CourseItem />
-          <CourseItem />
-          <CourseItem />
-        </div>
+    <Card>
+      <div className='courses'>
+        <CourseItem {...course1} />
+        <CourseItem {...course2} />
+        <CourseItem {...course3} />
       </div>
-    </div>
+    </Card>
   );
 }

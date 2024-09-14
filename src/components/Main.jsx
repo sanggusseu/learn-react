@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import Counter from './Counter';
 
 function Main() {
-  return(
+  const [total, setTotal] = useState(0);
+  const handleTotal = () => {
+    setTotal(total + 1);
+  };
+  return (
     <main>
-      <Counter/>
+      <h2>totla: {total}</h2>
+      <Counter onTotal={handleTotal} />
+      <br />
+      <br />
+      <Counter onTotal={handleTotal} />
     </main>
   );
 }

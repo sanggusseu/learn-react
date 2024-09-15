@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './AppCounter.jsx';
+import App from './AppCourse.jsx';
 // import AppCounter from './AppCounter.jsx';
 import './index.css';
 

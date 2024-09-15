@@ -10,9 +10,10 @@ function Main() {
     <main>
       <h2>totla: {total}</h2>
       <Counter onTotal={handleTotal} />
-      <br />
-      <br />
+      <hr />
       <Counter onTotal={handleTotal} />
+      <hr />
+      <Counter />
     </main>
   );
 }

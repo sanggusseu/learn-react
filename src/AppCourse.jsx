@@ -2,9 +2,10 @@ import { useState } from 'react';
 import './AppCourse.css';
 import CourseForm from './components/course/CourseForm';
 import CourseListCard from './components/course/CourseListCard';
+import { useImmer } from 'use-immer';
 
 function App() {
-  const [items, setItems] = useState([
+  const [items, updateItems] = useImmer([
     {
       title: '입문자를 위한, HTML&CSS 웹 개발 입문',
       description: '웹 개발에 필요한 기본 지식을 배웁니다.',
@@ -28,11 +29,16 @@ function App() {
   ]);
 
   const handleFavorite = index => {
-    const newItems = items.toSpliced(index, 1, {
-      ...items[index],
-      isFavorite: !items[index].isFavorite,
+    updateItems(draft => {
+      console.log(draft);
+      const newItem = draft[index];
+      newItem.isFavorite = !newItem.isFavorite;
     });
-    setItems(newItems);
+    // const newItems = items.toSpliced(index, 1, {
+    //   ...items[index],
+    //   isFavorite: !items[index].isFavorite,
+    // });
+    // setItems(newItems);
   };
 
   // const temp = items.filter(item => item.isFavorite);

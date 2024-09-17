@@ -15,14 +15,13 @@ export default function AppTodo() {
   };
 
   const handleAddTodo = () => {
-    const newArr = [...todos];
-    newArr.splice(todoIndex, 0, {
-      id: todos.length + 2,
-      text: todoText,
-      done: false,
-    });
-
-    setTodos(newArr);
+    setTodos(
+      todos.toSpliced(todoIndex, 0, {
+        id: todos.length + 2,
+        text: todoText,
+        done: false,
+      })
+    );
     setTodoText('');
   };
 
@@ -49,6 +48,10 @@ export default function AppTodo() {
 
   const handleChangeTodoIndex = e => {
     setTodoIndex(e.target.value);
+  };
+
+  const handleReverse = () => {
+    setTodos(todos.toReversed());
   };
   return (
     <div>
@@ -82,6 +85,9 @@ export default function AppTodo() {
         </button>
       </div>
       <div>Preview: {todoText}</div>
+      <button type='button' onClick={handleReverse}>
+        Reverse
+      </button>
       <TodoList
         todos={todos}
         onDelete={handleDeleteTodo}

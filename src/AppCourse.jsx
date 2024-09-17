@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import './AppCourse.css';
 import CourseForm from './components/course/CourseForm';
 import CourseListCard from './components/course/CourseListCard';
 
 function App() {
-  const items = [
+  const [items, setItems] = useState([
     {
       title: '입문자를 위한, HTML&CSS 웹 개발 입문',
       description: '웹 개발에 필요한 기본 지식을 배웁니다.',
@@ -24,14 +25,26 @@ function App() {
       isFavorite: true,
       link: 'https://inf.run/YkAN',
     },
-  ];
+  ]);
+
+  const handleFavorite = index => {
+    const newItems = items.toSpliced(index, 1, {
+      ...items[index],
+      isFavorite: !items[index].isFavorite,
+    });
+    setItems(newItems);
+  };
 
   // const temp = items.filter(item => item.isFavorite);
   return (
     <>
       <main style={{ flexDirection: 'column', gap: '20px' }}>
         <CourseForm />
-        <CourseListCard title='강의 목록' items={items} />
+        <CourseListCard
+          title='강의 목록'
+          items={items}
+          onHandleFavorite={handleFavorite}
+        />
         {/* <CourseListCard title='관심 강의' items={temp} /> */}
       </main>
     </>

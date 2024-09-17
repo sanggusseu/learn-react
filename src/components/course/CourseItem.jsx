@@ -1,6 +1,9 @@
-function HeartIconBtn({ isFavorite }) {
+function HeartIconBtn({ isFavorite, index, onHandleFavorite }) {
+  const handleFavorite = () => {
+    onHandleFavorite(index);
+  };
   return (
-    <button type='button' className='btn'>
+    <button type='button' className='btn' onClick={handleFavorite}>
       {/* {isFavorite ? (
         <img className='btn__img' src='/img/heart-fill-icon.svg' />
       ) : (
@@ -28,6 +31,8 @@ export default function CourseItem({
   thumbnail,
   isFavorite,
   link,
+  index,
+  onHandleFavorite,
 }) {
   return (
     <article className='course'>
@@ -37,7 +42,11 @@ export default function CourseItem({
         <div className='course__description'>{description}</div>
       </div>
       <div className='course__icons'>
-        <HeartIconBtn isFavorite={isFavorite} />
+        <HeartIconBtn
+          isFavorite={isFavorite}
+          index={index}
+          onHandleFavorite={onHandleFavorite}
+        />
         {link && <LinkIconBtn />}
       </div>
     </article>

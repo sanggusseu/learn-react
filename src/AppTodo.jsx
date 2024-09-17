@@ -2,41 +2,46 @@ import { useState } from 'react';
 import './App.css';
 import TodoList from './components/todo/TodoList';
 
-export default function AppTodo() {
+function AppTodo(props) {
   const [todoText, setTodoText] = useState('');
-  const [todoIndex, setTodoIndex] = useState(0);
   const [todos, setTodos] = useState([
     { id: 0, text: 'HTML&CSS 공부하기', done: false },
     { id: 1, text: '자바스크립트 공부하기', done: false },
   ]);
+  const [insertAt, setInsertAt] = useState(todos.length - 1);
 
   const handleTodoTextChange = e => {
     setTodoText(e.target.value);
   };
-
-  const handleAddTodo = () => {
-    setTodos(
-      todos.toSpliced(todoIndex, 0, {
-        id: todos.length + 2,
-        text: todoText,
-        done: false,
-      })
-    );
-    setTodoText('');
+  const handleAddTodo = e => {
+    const nextId = todos.length;
+    setTodos([...todos, { id: nextId, text: todoText, done: false }]);
+    setTodoText(''); // null, undefined [X]
   };
-
+  const handleAddTodoByIndex = () => {
+    const nextId = todos.length;
+    const newTodos = [
+      // 삽입 지점 이전 항목
+      ...todos.slice(0, insertAt),
+      // 새 항목
+      { id: nextId, text: todoText, done: false },
+      // 삽입 지점 이후 항목
+      ...todos.slice(insertAt),
+    ];
+    setTodos(newTodos);
+    setName('');
+  };
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       handleAddTodo();
     }
   };
-
-  const handleDeleteTodo = id => {
-    setTodos(todos.filter(todo => todo.id !== id));
-    setTodoText('');
+  const handleDeleteTodo = deleteId => {
+    const newTodos = todos.filter(item => item.id !== deleteId);
+    setTodos(newTodos);
   };
 
-  const handleToogleTodo = (id, done) => {
+  const handleToggleTodo = (id, done) => {
     const nextTodos = todos.map(item => {
       if (item.id === id) {
         return { ...item, done };
@@ -46,53 +51,51 @@ export default function AppTodo() {
     setTodos(nextTodos);
   };
 
-  const handleChangeTodoIndex = e => {
-    setTodoIndex(e.target.value);
-  };
-
   const handleReverse = () => {
+    // const nextTodos = [...todos];
+    // nextTodos.reverse();
+    // setTodos(nextTodos);
     setTodos(todos.toReversed());
   };
+
+  // const handleToggleCopyTodo = (id, done) => {
+  //   const nextTodos = [...copyTodos];
+  //   const targetItem = nextTodos.find(item => item.id === id);
+  //   targetItem.done = done;
+  //   setCopyTodos(nextTodos);
+  // }
+
   return (
     <div>
       <h2>할일목록</h2>
       <div>
         <input
           type='text'
-          onChange={handleTodoTextChange}
           value={todoText}
+          onChange={handleTodoTextChange}
           onKeyDown={handleKeyDown}
         />
-        <button type='button' onClick={handleAddTodo}>
-          추가
-        </button>
+        <button onClick={handleAddTodo}>추가</button>
       </div>
       <div>
-        <select
-          name=''
-          id=''
-          value={todoIndex}
-          onChange={handleChangeTodoIndex}
-        >
-          {todos.map((_, index) => (
-            <option value={index} key={index}>
+        <select value={insertAt} onChange={e => setInsertAt(e.target.value)}>
+          {todos.map((item, index) => (
+            <option key={item.id} value={index}>
               {index} 번째
             </option>
           ))}
         </select>
-        <button type='button' onClick={handleAddTodo}>
-          {todoIndex}번째 추가
-        </button>
+        <button onClick={handleAddTodoByIndex}>{insertAt} 번째 추가</button>
       </div>
       <div>Preview: {todoText}</div>
-      <button type='button' onClick={handleReverse}>
-        Reverse
-      </button>
+      <button onClick={handleReverse}>Reverse</button>
       <TodoList
         todos={todos}
-        onDelete={handleDeleteTodo}
-        onToogleTodo={handleToogleTodo}
+        onDeleteTodo={handleDeleteTodo}
+        onToggleTodo={handleToggleTodo}
       />
     </div>
   );
 }
+
+export default AppTodo;

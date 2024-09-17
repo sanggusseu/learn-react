@@ -3,6 +3,7 @@ import HeaderTheme from './components/theme/Header.jsx';
 import MainTheme from './components/theme/Main.jsx';
 import FooterTheme from './components/theme/Footer.jsx';
 import { useState } from 'react';
+import { ModeContext } from './context/ModeContext.jsx';
 function AppTheme(props) {
   const [mode, setMode] = useState('light');
   const handleMode = () => {
@@ -10,9 +11,11 @@ function AppTheme(props) {
   };
   return (
     <>
-      <HeaderTheme onHandleMode={handleMode} mode={mode} />
-      <MainTheme mode={mode} />
-      <FooterTheme mode={mode} />
+      <ModeContext.Provider value={{ mode, handleMode }}>
+        <HeaderTheme />
+        <MainTheme />
+        <FooterTheme />
+      </ModeContext.Provider>
     </>
   );
 }

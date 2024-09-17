@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './AppTodo.jsx';
-// import AppCounter from './AppCounter.jsx';
+import App from './AppTheme';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
